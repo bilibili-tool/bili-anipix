@@ -45,9 +45,12 @@ export function CustomImage({
         data-size={dataSize}
         data-datetime={dataDatetime}
         onLoad={() => setIsLoading(false)}
-        onError={() => {
+        onError={(e) => {
           setIsLoading(false);
           setHasError(true);
+          const img = e.currentTarget;
+          const failedSrc = img.currentSrc || img.src;
+          console.log(`Image failed to load: ${failedSrc}`);
         }}
       />
       {isLoading && <div className="image-loading">Loading...</div>}
