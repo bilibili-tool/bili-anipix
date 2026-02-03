@@ -111,6 +111,11 @@ export default function RandomPage() {
                   <CustomImage
                     alt={currentImage.description || currentImage.title}
                     title={currentImage.description || currentImage.title}
+                    dataId={currentImage.id}
+                    dataSize={currentImage.size}
+                    dataAuthorId={currentImage.author_id}
+                    dataCategory={currentImage.category}
+                    dataDatetime={currentImage.date_time}
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     src={`${currentImage.src}${process.env.NEXT_PUBLIC_DETAIL_BILI_IMG_QUALITY}`}
                   />
@@ -212,8 +217,12 @@ export default function RandomPage() {
                       src={`${image.src}${process.env.NEXT_PUBLIC_DETAIL_BILI_IMG_QUALITY}`}
                       alt={image.description || image.title}
                       title={image.description || image.title}
+                      dataId={image.id}
+                      dataSize={image.size}
+                      dataAuthorId={image.author_id}
+                      dataCategory={image.category}
+                      dataDatetime={image.date_time}
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      
                     />
                     <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <span className="text-sm font-medium text-foreground">

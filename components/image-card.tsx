@@ -29,9 +29,13 @@ export function ImageCard({
         <CustomImage
           alt={image.description || image.title}
           className="object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          dataId={image.id}
+          dataSize={image.size}
+          dataAuthorId={image.author_id}
+          dataCategory={image.category}
+          dataDatetime={image.date_time}
           src={
-            `${process.env.NEXT_PUBLIC_BILI_IMG_PROXY_URL}?url=${image.src}${process.env.NEXT_PUBLIC_LIST_BILI_IMG_QUALITY}`
+            `${image.src}${process.env.NEXT_PUBLIC_LIST_BILI_IMG_QUALITY}`
           }
         />
 

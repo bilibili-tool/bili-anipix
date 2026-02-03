@@ -86,6 +86,11 @@ export default async function ImageDetailPage({ params }: PageProps) {
                 <CustomImage
                   alt={image.description || image.title}
                   title={image.description || image.title}
+                  dataId={image.id}
+                  dataSize={image.size}
+                  dataAuthorId={image.author_id}
+                  dataCategory={image.category}
+                  dataDatetime={image.date_time}
                   className="object-cover"
                   src={`${image.src}${process.env.NEXT_PUBLIC_DETAIL_BILI_IMG_QUALITY}`}
                 />
@@ -179,9 +184,7 @@ export default async function ImageDetailPage({ params }: PageProps) {
                     Share
                   </Button>
                   <Button variant="outline" asChild>
-                    <Link
-                      href={`${process.env.NEXT_PUBLIC_BILI_IMG_PROXY_URL}?url=${image.src}`}
-                    >
+                    <Link href={`${process.env.NEXT_PUBLIC_BILI_IMG_PROXY_URL}?url=${image.src}`}>
                       <Download className="h-4 w-4 mr-2" />
                       Download
                     </Link>

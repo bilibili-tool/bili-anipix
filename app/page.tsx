@@ -6,18 +6,18 @@ import { ImageCard } from "@/components/image-card";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Pagination } from "@/components/pagination";
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, TrendingUp, Clock } from "lucide-react";
 import Link from "next/link";
 
-const ITEMS_PER_PAGE = 32;
+const ITEMS_PER_PAGE = 27;
 
 export default function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const featuredImages = animeImages.slice(0, 3);
-  const popularTags = getAllTags().slice(0, 8);
+  // const featuredImages = animeImages.slice(0, 3);
+  // const popularTags = getAllTags().slice(0, 8);
 
   // Pagination logic
   const totalPages = Math.ceil(animeImages.length / ITEMS_PER_PAGE);
@@ -85,7 +85,7 @@ export default function HomePage() {
         </section>
 
         {/* Featured Section */}
-        <section className="py-16 bg-card/30">
+        {/* <section className="py-16 bg-card/30">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-3 mb-8">
               <TrendingUp className="h-5 w-5 text-primary" />
@@ -98,10 +98,10 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Popular Tags */}
-        <section className="py-12">
+        {/* <section className="py-12">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-xl font-semibold text-foreground mb-6">
               Popular Tags
@@ -119,7 +119,7 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Gallery Grid with Pagination */}
         <section id="gallery" className="py-16">
@@ -138,7 +138,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {paginatedImages.map((image) => (
                 <ImageCard key={image.title} image={image} />
               ))}

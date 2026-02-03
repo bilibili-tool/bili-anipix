@@ -1,51 +1,56 @@
 "use client";
-// import { useEffect, useRef } from "react";
+import { useState } from "react";
 
 interface ImageProps {
   alt?: string;
   src: string | "";
   title?: string | "";
   className?: string;
-  sizes?: string;
+  dataId?: string | number;
+  dataAuthorId?: string | number;
+  dataCategory?: string;
+  dataSize?: string | number;
+  dataDatetime?: string | number;
 }
 
-export function CustomImage({ alt, src, title, className, sizes }: ImageProps) {
-  // const ref = useRef(null);
-  // useEffect(() => {
-  //   const imgContainer: any = ref.current;
-  //   let alink: any = imgContainer.querySelector("a");
-  //   let img: any = imgContainer.querySelector("img");
-  //   if (!alink) {
-  //     alink = document.createElement("a");
-  //   }
-  //   if (!img) {
-  //     img = new Image();
-  //   }
+export function CustomImage({
+  alt,
+  src,
+  title,
+  className,
+  dataId,
+  dataAuthorId,
+  dataCategory,
+  dataSize,
+  dataDatetime,
+}: ImageProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
-  //   alink.href =
-  //     "https://i0.hdslb.com/bfs/new_dyn/245cfc65f32d6b057ce9980378f330ef516035062.jpg";
-  //   alink.target = "_blank";
-  //   alink.rel = "noopener noreferrer nofollow";
-  //   img.src =
-  //     "https://i0.hdslb.com/bfs/new_dyn/245cfc65f32d6b057ce9980378f330ef516035062.jpg";
-  //   // img.onerror = (e: any) => {
-  //   //   img.src = "/placeholder.svg";
-  //   //   console.log("Image not found", e);
-  //   // };
-  //   img.alt = alt;
-  //   img.title = title || alt;
-  //   img.loading = "lazy";
-  //   img.decoding = "async";
-  //   img.className = className;
-  //   img.style = sizes;
-  //   img.dataset.nimg = "fill";
-  //   alink.appendChild(img);
-  //   imgContainer.appendChild(alink);
-  // }, [src]);
+  const resolvedSrc = `${process.env.NEXT_PUBLIC_BILI_IMG_PROXY_URL}?url=${src}`;
+  const fallbackSrc = "/placeholder.svg";
 
   return (
-    <div >
-      <img src={`/api/bili-img?url=${src}`} alt={alt} className={className} />
-    </div>
+    <>
+      <img
+        src={hasError ? fallbackSrc : resolvedSrc}
+        alt={alt}
+        title={title || alt}
+        className={className}
+        loading="lazy"
+        decoding="async"
+        data-id={dataId}
+        data-author_id={dataAuthorId}
+        data-category={dataCategory}
+        data-size={dataSize}
+        data-datetime={dataDatetime}
+        onLoad={() => setIsLoading(false)}
+        onError={() => {
+          setIsLoading(false);
+          setHasError(true);
+        }}
+      />
+      {isLoading && <div className="image-loading">Loading...</div>}
+    </>
   );
 }
