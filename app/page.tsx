@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, TrendingUp, Clock } from "lucide-react";
 import Link from "next/link";
 
-const ITEMS_PER_PAGE = 16;
+const ITEMS_PER_PAGE = 24;
 
 export default function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);
