@@ -29,11 +29,12 @@ export function ImageCard({
       {/* Image Container */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
-          loading="lazy"
-          alt={image.description || image.title}
+          fill
+          priority={priority}
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          src={image.src || "/placeholder.svg"}
+          alt={image.description || image.title}
+          src={`/api/bili-img?url=${encodeURIComponent(image.src)}` || "/placeholder.svg"}
         />
 
         {/* Overlay */}
@@ -57,7 +58,7 @@ export function ImageCard({
       {/* Content */}
       <div className="p-4">
         <h3 className="font-semibold text-foreground line-clamp-1 group-hover:text-primary transition-colors">
-          {image.description}
+          {image.title}
         </h3>
         <p className="text-sm text-muted-foreground mt-1">
           by {image.author_id}

@@ -83,11 +83,12 @@ export default async function ImageDetailPage({ params }: PageProps) {
               {/* Image */}
               <div className="relative aspect-[4/3] lg:aspect-auto lg:h-[600px] rounded-2xl overflow-hidden bg-card border border-border">
                 <Image
-                  loading="lazy"
                   alt={image.description || image.title}
+                  fill
+                  priority
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  src={image.src || "/placeholder.svg"}
+                  src={`/api/bili-img?url=${encodeURIComponent(image.src)}` || "/placeholder.svg"}
                 />
               </div>
 

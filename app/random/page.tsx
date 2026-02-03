@@ -109,12 +109,15 @@ export default function RandomPage() {
                 {/* Image */}
                 <div className="relative aspect-[4/3] lg:aspect-square rounded-2xl overflow-hidden bg-card border border-border group">
                   <Image
-                    src={currentImage.src || "/placeholder.svg"}
                     alt={currentImage.title}
                     fill
                     priority
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 1024px) 100vw, 50vw"
+                    src={
+                      `/api/bili-img?url=${encodeURIComponent(currentImage.src)}` ||
+                      "/placeholder.svg"
+                    }
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
@@ -151,14 +154,13 @@ export default function RandomPage() {
                     <div className="flex items-center gap-2">
                       <Calendar className="h-5 w-5 text-muted-foreground" />
                       <span className="text-muted-foreground">
-                        {new Date(currentImage.date_time * 1000).toLocaleDateString(
-                          "en-US",
-                          {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          },
-                        )}
+                        {new Date(
+                          currentImage.date_time * 1000,
+                        ).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
                       </span>
                     </div>
                   </div>
