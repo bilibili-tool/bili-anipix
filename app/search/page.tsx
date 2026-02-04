@@ -52,6 +52,17 @@ function SearchContent() {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedResults = allResults.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
+  // Build return URL with current search state
+  const buildReturnUrl = () => {
+    const params = new URLSearchParams();
+    if (query) params.set("q", query);
+    if (selectedTag) params.set("tag", selectedTag);
+    if (currentPage > 1) params.set("page", currentPage.toString());
+    return params.toString() ? `/search?${params.toString()}` : "/search";
+  };
+  
+  const returnUrl = buildReturnUrl();
+
   // Update URL when search changes
   useEffect(() => {
     const params = new URLSearchParams();
@@ -211,7 +222,7 @@ function SearchContent() {
 
             {paginatedResults.length > 0 ? (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {paginatedResults.map((image) => (
                     <ImageCard key={image.title} image={image} />
                   ))}

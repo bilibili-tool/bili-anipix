@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { animeImages, getAllTags } from "@/lib/anime-data";
 import { ImageCard } from "@/components/image-card";
 import { Header } from "@/components/header";
@@ -14,21 +14,28 @@ import Link from "next/link";
 const ITEMS_PER_PAGE = 27;
 
 export default function HomePage() {
-  const [currentPage, setCurrentPage] = useState(1);
-
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
+  const currentPage = Number(searchParams.get("page")) || 1;
   // const featuredImages = animeImages.slice(0, 3);
   // const popularTags = getAllTags().slice(0, 8);
 
   // Pagination logic
   const totalPages = Math.ceil(animeImages.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedImages = animeImages.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE,
-  );
+  const paginatedImages = animeImages.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  // Build return URL with current page
+  const returnUrl = currentPage > 1 ? `?/page=${currentPage}` : "/";
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    const params = new URLSearchParams();
+    if (page > 1) {
+      params.set("page", page.toString());
+    }
+    const queryString = params.toString();
+    router.push(queryString ? `/?${queryString}` : "/", { scroll: false });
     // Scroll to gallery section
     document.getElementById("gallery")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -94,7 +101,7 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {featuredImages.map((image, index) => (
-                <ImageCard key={image.title} image={image} />
+                <ImageCard key={image.title} image={image} returnUrl={returnUrl}/>
               ))}
             </div>
           </div>
@@ -140,7 +147,7 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {paginatedImages.map((image) => (
-                <ImageCard key={image.title} image={image} />
+                <ImageCard key={image.title} image={image} returnUrl={returnUrl}/>
               ))}
             </div>
 

@@ -1,6 +1,5 @@
-import { notFound } from "next/navigation";
-
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { getImageByTitle, animeImages } from "@/lib/anime-data";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -21,6 +20,7 @@ import {
 
 interface PageProps {
   params: Promise<{ title: string }>;
+  searchParams: Promise<{ from?: string }>;
 }
 
 export async function generateStaticParams() {
@@ -45,9 +45,14 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default async function ImageDetailPage({ params }: PageProps) {
+export default async function DetailPage({ params, searchParams }: PageProps) {
   const { title } = await params;
+  const { from } = await searchParams;
   const image = getImageByTitle(title);
+
+  // Determine the back link - decode the 'from' parameter or default to home
+  const backUrl = from || "/";
+  const isFromSearch = backUrl.startsWith("/search");
 
   if (!image) {
     notFound();
@@ -65,14 +70,13 @@ export default async function ImageDetailPage({ params }: PageProps) {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
-
       <main className="flex-1 pt-16">
         {/* Back Button */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/" className="flex items-center gap-2">
+            <Link href={backUrl} className="flex items-center gap-2">
               <ArrowLeft className="h-4 w-4" />
-              Back to Gallery
+              {isFromSearch ? "Back to Search" : "Back to Gallery"}
             </Link>
           </Button>
         </div>
@@ -91,7 +95,7 @@ export default async function ImageDetailPage({ params }: PageProps) {
                   dataAuthorId={image.author_id}
                   dataCategory={image.category}
                   dataDatetime={image.date_time}
-                  className="object-cover"
+                  className="object-cover rounded-xl w-full h-full"
                   src={`${image.src}${process.env.NEXT_PUBLIC_DETAIL_BILI_IMG_QUALITY}`}
                 />
               </div>

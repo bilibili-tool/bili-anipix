@@ -53,7 +53,7 @@ export function CustomImage({
           console.log(`Image failed to load: ${failedSrc}`);
         }}
       />
-      {isLoading && <div className="image-loading">Loading...</div>}
+      {isLoading && <div className="image-loading w-full h-full flex items-center justify-center">Loading...</div>}
     </>
   );
 }

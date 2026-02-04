@@ -10,22 +10,27 @@ import { cn } from "@/lib/utils";
 interface ImageCardProps {
   image: AnimeImage;
   className?: string;
+  returnUrl?: string;
 }
 
-export function ImageCard({ image, className }: ImageCardProps) {
+export function ImageCard({ image, className, returnUrl }: ImageCardProps) {
+  const href = returnUrl 
+    ? `/image/${image.title}?from=${(returnUrl)}`
+    : `/image/${image.title}`;
+    
   return (
     <Link
-      href={`/image/${image.title}`}
+      href={href}
       className={cn(
-        "relative block overflow-hidden rounded-xl bg-card border border-border transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10",
+        "relative overflow-hidden rounded-xl bg-card border border-border transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10",
         className,
       )}
     >
       {/* Image Container */}
-      <div className="relative  overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-[500px]">
+      <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-[500px]">
         <CustomImage
           alt={image.description || image.title}
-          className="object-cover transition-transform duration-500 group-hover:scale-105 lg:aspect-auto lg:h-[500px] w-[100%]"
+          className="object-cover transition-transform duration-500 group-hover:scale-105 lg:aspect-auto w-full h-full"
           dataId={image.id}
           dataSize={image.size}
           dataAuthorId={image.author_id}
