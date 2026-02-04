@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function DetailPage({ params, searchParams }: PageProps) {
   const { title } = await params;
-  const { from } = await searchParams;
+  const from = "";
   const image = getImageByTitle(title);
 
   // Determine the back link - decode the 'from' parameter or default to home
