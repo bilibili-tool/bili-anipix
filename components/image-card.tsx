@@ -4,7 +4,7 @@ import Link from "next/link";
 // import { Heart, Eye } from "lucide-react";
 import { AnimeImage } from "@/lib/anime-data";
 import { Badge } from "@/components/ui/badge";
-import {CustomImage} from "@/components/image";
+import { CustomImage } from "@/components/image";
 import { cn } from "@/lib/utils";
 
 interface ImageCardProps {
@@ -12,31 +12,26 @@ interface ImageCardProps {
   className?: string;
 }
 
-export function ImageCard({
-  image,
-  className,
-}: ImageCardProps) {
+export function ImageCard({ image, className }: ImageCardProps) {
   return (
     <Link
       href={`/image/${image.title}`}
       className={cn(
-        "group relative block overflow-hidden rounded-xl bg-card border border-border transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10",
+        "relative block overflow-hidden rounded-xl bg-card border border-border transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10",
         className,
       )}
     >
       {/* Image Container */}
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="relative  overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-[500px]">
         <CustomImage
           alt={image.description || image.title}
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-cover transition-transform duration-500 group-hover:scale-105 lg:aspect-auto lg:h-[500px] w-[100%]"
           dataId={image.id}
           dataSize={image.size}
           dataAuthorId={image.author_id}
           dataCategory={image.category}
           dataDatetime={image.date_time}
-          src={
-            `${image.src}${process.env.NEXT_PUBLIC_LIST_BILI_IMG_QUALITY}`
-          }
+          src={`${image.src}${process.env.NEXT_PUBLIC_LIST_BILI_IMG_QUALITY}`}
         />
 
         {/* Overlay */}
@@ -63,12 +58,22 @@ export function ImageCard({
       {/* Content */}
       <div className="p-4">
         <h3 className="font-semibold text-foreground line-clamp-1 group-hover:text-primary transition-colors">
-          {/* {image.title} */}
+          {image.description}
         </h3>
         <p className="text-sm text-muted-foreground mt-1">
           UId: {image.author_id}
         </p>
-
+        <p className="text-sm text-muted-foreground mt-1">
+          Published at :{" "}
+          {new Date(image.date_time * 1000).toLocaleString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric",
+          })}
+        </p>
         {/* Tags */}
         <div className="flex flex-wrap gap-1.5 mt-3">
           {image?.tags?.slice(0, 3).map((tag) => (

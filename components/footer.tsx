@@ -9,8 +9,8 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/20">
-                <Sparkles className="h-5 w-5 text-primary" />
+              <div className="flex h-12 w-12 items-center justify-center">
+                <img className="h-12 w-12" src="/favicon.png" />
               </div>
               <span className="text-xl font-bold tracking-tight text-foreground">
                 AniPix

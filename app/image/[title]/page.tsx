@@ -82,7 +82,7 @@ export default async function ImageDetailPage({ params }: PageProps) {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
               {/* Image */}
-              <div className="relative aspect-[4/3] lg:aspect-auto lg:h-[600px] rounded-2xl overflow-hidden bg-card border border-border img-container">
+              <div className="relative aspect-[4/3] lg:aspect-auto lg:h-[750px] rounded-2xl overflow-hidden bg-card border border-border flex items-center justify-center">
                 <CustomImage
                   alt={image.description || image.title}
                   title={image.description || image.title}
@@ -135,6 +135,9 @@ export default async function ImageDetailPage({ params }: PageProps) {
                           month: "short",
                           day: "numeric",
                           year: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                          second: "numeric",
                         },
                       )}
                     </span>
@@ -184,7 +187,9 @@ export default async function ImageDetailPage({ params }: PageProps) {
                     Share
                   </Button>
                   <Button variant="outline" asChild>
-                    <Link href={`${process.env.NEXT_PUBLIC_BILI_IMG_PROXY_URL}?url=${image.src}`}>
+                    <Link
+                      href={`${process.env.NEXT_PUBLIC_BILI_IMG_PROXY_URL}?url=${image.src}`}
+                    >
                       <Download className="h-4 w-4 mr-2" />
                       Download
                     </Link>

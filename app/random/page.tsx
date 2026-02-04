@@ -160,6 +160,9 @@ export default function RandomPage() {
                           month: "short",
                           day: "numeric",
                           year: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                          second: "numeric",
                         })}
                       </span>
                     </div>
